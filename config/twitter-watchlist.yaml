@@ -1,0 +1,228 @@
+version: 1
+updated_at: "2026-03-16"
+owner_profile: "AI content creator"
+purpose: "Initial mixed Chinese-English Twitter/X watchlist for AI creator intelligence"
+
+tiers:
+  core:
+    description: "Fetch daily by default. High-signal accounts for first-hand product, builder, and creator intel."
+  candidate:
+    description: "Fetch less frequently or review manually before promoting to core."
+  scout:
+    description: "Use as discovery seeds only. Do not rely on these as primary production sources."
+
+accounts:
+  - handle: "AI_Jasonyu"
+    tier: "core"
+    language: ["zh"]
+    tags: ["cn_creator", "tutorial", "agent_ecosystem"]
+    category: "creator"
+    reason: "Chinese OpenClaw and AI workflow educator with repeatable, high-utility tutorials."
+    seed_source: "user_provided"
+
+  - handle: "GoSailGlobal"
+    tier: "core"
+    language: ["zh", "en"]
+    tags: ["cn_creator", "bridge", "trend_radar"]
+    category: "creator"
+    reason: "Bridges English AI signals into Chinese-friendly summaries and creator-useful insights."
+    seed_source: "user_provided"
+
+  - handle: "steipete"
+    tier: "core"
+    language: ["en"]
+    tags: ["global_builder", "agent_ecosystem", "first_hand"]
+    category: "builder"
+    reason: "One of the strongest first-hand accounts for OpenClaw and agent ecosystem signals."
+    seed_source: "derived_from_user_circle"
+
+  - handle: "nateliason"
+    tier: "core"
+    language: ["en"]
+    tags: ["global_builder", "operator", "agent_ecosystem"]
+    category: "builder"
+    reason: "Shares practical AI-agent business usage rather than abstract commentary."
+    seed_source: "derived_from_user_circle"
+
+  - handle: "FelixCraftAI"
+    tier: "core"
+    language: ["en"]
+    tags: ["builder", "agent_ecosystem", "workflow"]
+    category: "builder"
+    reason: "Useful for concrete agent product workflows and creator-facing automation ideas."
+    seed_source: "derived_from_user_circle"
+
+  - handle: "MatthewBerman"
+    tier: "core"
+    language: ["en"]
+    tags: ["trend_radar", "agent_ecosystem", "tool_review"]
+    category: "creator"
+    reason: "Good English-language radar for new agent tools and practical ecosystem shifts."
+    seed_source: "derived_from_user_circle"
+
+  - handle: "karpathy"
+    tier: "core"
+    language: ["en"]
+    tags: ["narrative", "research_to_product", "high_signal_low_freq"]
+    category: "research_builder"
+    reason: "Low-frequency but narrative-defining posts that shape AI discourse and product framing."
+    seed_source: "curated"
+
+  - handle: "levelsio"
+    tier: "core"
+    language: ["en"]
+    tags: ["global_builder", "product_launch", "aigc"]
+    category: "builder"
+    reason: "Strong builder signal for AI products that cross into broad creator attention."
+    seed_source: "curated"
+
+  - handle: "OpenAI"
+    tier: "core"
+    language: ["en"]
+    tags: ["official", "model_release", "product_launch"]
+    category: "official"
+    reason: "First-hand source for OpenAI model, API, and product announcements."
+    seed_source: "curated"
+
+  - handle: "AnthropicAI"
+    tier: "core"
+    language: ["en"]
+    tags: ["official", "model_release", "product_launch"]
+    category: "official"
+    reason: "First-hand source for Anthropic, Claude, and API platform updates."
+    seed_source: "curated"
+
+  - handle: "claudeai"
+    tier: "core"
+    language: ["en"]
+    tags: ["official", "product_launch", "user_facing_updates"]
+    category: "official"
+    reason: "Useful complement to AnthropicAI for user-facing Claude product changes."
+    seed_source: "curated"
+
+  - handle: "perplexity_ai"
+    tier: "core"
+    language: ["en"]
+    tags: ["official", "product_launch", "search_agent"]
+    category: "official"
+    reason: "High-velocity product account with strong relevance to AI tooling and creator workflows."
+    seed_source: "curated"
+
+  - handle: "runwayml"
+    tier: "core"
+    language: ["en"]
+    tags: ["official", "aigc_video", "product_launch"]
+    category: "official"
+    reason: "Must-track official source for AI video tools and creator-relevant launches."
+    seed_source: "curated"
+
+  - handle: "GoogleDeepMind"
+    tier: "core"
+    language: ["en"]
+    tags: ["official", "research", "model_release"]
+    category: "official"
+    reason: "Important first-hand source for research and flagship model updates."
+    seed_source: "curated"
+
+  - handle: "TheRundownAI"
+    tier: "core"
+    language: ["en"]
+    tags: ["trend_radar", "news", "aigc"]
+    category: "media"
+    reason: "Fast-moving English radar for broad AI product and creator trends."
+    seed_source: "curated"
+
+  - handle: "bcherny"
+    tier: "core"
+    language: ["en"]
+    tags: ["founder_operator", "coding_agent", "first_hand"]
+    category: "operator"
+    reason: "High-signal account for Claude Code and coding-agent product direction."
+    seed_source: "curated"
+
+  - handle: "sidbidasaria"
+    tier: "core"
+    language: ["en"]
+    tags: ["founder_operator", "coding_agent", "product"]
+    category: "operator"
+    reason: "Useful for first-hand product and operator-level signals around coding agents."
+    seed_source: "curated"
+
+  - handle: "c_valenzuelab"
+    tier: "core"
+    language: ["en"]
+    tags: ["founder_operator", "aigc_video", "product_launch"]
+    category: "founder"
+    reason: "Runway founder signal for AI video direction, launches, and category framing."
+    seed_source: "curated"
+
+  - handle: "aakashgupta"
+    tier: "candidate"
+    language: ["en"]
+    tags: ["product", "agent_ecosystem", "operator"]
+    category: "operator"
+    reason: "Good product and distribution thinking, but not always first-hand AI creator signal."
+    seed_source: "curated"
+
+  - handle: "WenhuChen"
+    tier: "candidate"
+    language: ["en"]
+    tags: ["research_to_product", "search_agent", "perplexity"]
+    category: "research_operator"
+    reason: "Useful middle layer between research and product, but less creator-facing than core accounts."
+    seed_source: "curated"
+
+  - handle: "AskPerplexity"
+    tier: "candidate"
+    language: ["en"]
+    tags: ["official", "product_usage", "search_agent"]
+    category: "official"
+    reason: "Helpful for product-use narratives, but lower priority than the main official account."
+    seed_source: "curated"
+
+  - handle: "mike_chong_zh"
+    tier: "candidate"
+    language: ["zh"]
+    tags: ["cn_creator", "skills", "workflow"]
+    category: "creator"
+    reason: "Promising Chinese skill and workflow account worth observing before promotion."
+    seed_source: "derived_from_user_circle"
+
+  - handle: "edwordkaru"
+    tier: "candidate"
+    language: ["zh"]
+    tags: ["cn_creator", "operator", "optimization"]
+    category: "creator"
+    reason: "Useful angle on AI usage efficiency and operating discipline, but narrower than core."
+    seed_source: "derived_from_user_circle"
+
+  - handle: "zstmfhy"
+    tier: "candidate"
+    language: ["zh"]
+    tags: ["cn_creator", "trend_radar", "signal_amplifier"]
+    category: "creator"
+    reason: "Good for catching what is spreading in the Chinese AI creator circle."
+    seed_source: "derived_from_user_circle"
+
+  - handle: "zarazhangrui"
+    tier: "scout"
+    language: ["zh"]
+    tags: ["cn_creator", "scout_seed", "network_source"]
+    category: "scout"
+    reason: "Useful as a seed network for discovering Chinese AI creator accounts, not as a primary feed."
+    seed_source: "user_provided"
+
+selection_rules:
+  promote_candidate_to_core:
+    - "Produces first-hand or high-utility posts at least twice per week over a 2-4 week window"
+    - "Consistently yields content useful for AI creator briefs, not just reposted news"
+    - "Adds unique angle: builder, tutorial, founder, official, or AIGC workflow"
+  demote_core_to_candidate:
+    - "Becomes mostly reposts, memes, or low-information commentary"
+    - "Stops posting useful AI content for a sustained period"
+    - "Overlaps too heavily with stronger accounts in the same category"
+
+notes:
+  - "This file is an initial seed list, not a final production-grade universe."
+  - "For v1, prefer stable watchlist fetches over dynamic following-page discovery."
+  - "Add source-specific fetch configs later, after validating which accounts actually produce signal."

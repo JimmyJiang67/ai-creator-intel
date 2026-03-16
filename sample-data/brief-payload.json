@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "date": "2026-03-16",
+    "mode": "daily_brief",
+    "audience": "AI creator",
+    "channels": ["feishu", "email"]
+  },
+  "sections": {
+    "must_know_launches": [
+      {
+        "source": "@OpenAI",
+        "why_it_matters": "New release affects creator workflows.",
+        "suggested_angle": "Explain what actually changed.",
+        "source_url": "https://x.com/OpenAI"
+      }
+    ],
+    "builder_moves": [
+      {
+        "source": "@steipete",
+        "why_it_matters": "New agent workflow is reusable.",
+        "suggested_angle": "Turn it into a builder case study.",
+        "source_url": "https://x.com/steipete"
+      }
+    ],
+    "creator_workflows": [],
+    "viral_aigc": [],
+    "watch_next": [],
+    "contest_opportunities": [
+      {
+        "title": "AIGC 视频大赛",
+        "organizer": "某平台",
+        "deadline": "2026-06-30",
+        "prize": "一等奖 5 万元",
+        "requirements": "原创 AIGC 视频",
+        "official_url": "https://example.cn/official"
+      }
+    ]
+  }
+}

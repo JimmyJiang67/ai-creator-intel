@@ -1,0 +1,38 @@
+[
+  {
+    "handle": "OpenAI",
+    "text": "Introducing a major model release for developers and creators.",
+    "source_url": "https://x.com/OpenAI/status/1",
+    "created_at": "2026-03-16T10:00:00Z",
+    "engagement": {
+      "likes": 1200,
+      "retweets": 200,
+      "replies": 50,
+      "quotes": 10
+    }
+  },
+  {
+    "handle": "AI_Jasonyu",
+    "text": "Here is a reusable prompt workflow for creators using Claude.",
+    "source_url": "https://x.com/AI_Jasonyu/status/2",
+    "created_at": "2026-03-16T11:00:00Z",
+    "engagement": {
+      "likes": 400,
+      "retweets": 80,
+      "replies": 10,
+      "quotes": 2
+    }
+  },
+  {
+    "handle": "runwayml",
+    "text": "Viral AI video workflow with a new generation pipeline.",
+    "source_url": "https://x.com/runwayml/status/3",
+    "created_at": "2026-03-16T12:00:00Z",
+    "engagement": {
+      "likes": 900,
+      "retweets": 150,
+      "replies": 30,
+      "quotes": 20
+    }
+  }
+]

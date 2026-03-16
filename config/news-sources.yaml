@@ -1,0 +1,206 @@
+version: 1
+updated_at: "2026-03-16"
+purpose: "Initial AI news source map for creator intelligence briefs"
+
+strategy:
+  priority_order:
+    - "official"
+    - "developer_platform"
+    - "community_signal"
+    - "curated_media"
+    - "china_bridge"
+  default_mode: "watchlist_plus_news"
+  notes:
+    - "Use official sources to confirm launches whenever possible."
+    - "Use community and media sources for discovery, not as the final authority on product details."
+    - "Prefer sources with stable RSS, public pages, or consistent HTML structure."
+
+source_groups:
+  official:
+    description: "First-hand product, model, and research updates."
+    sources:
+      - name: "OpenAI News"
+        kind: "official"
+        topic_tags: ["model_release", "product_launch", "api"]
+        priority: 1.0
+        fetch:
+          enabled: true
+          format: "rss"
+          parser: "rss"
+          url: "https://openai.com/news/rss.xml"
+      - name: "Anthropic News"
+        kind: "official"
+        topic_tags: ["model_release", "product_launch", "api"]
+        priority: 1.0
+        fetch:
+          enabled: true
+          format: "html"
+          parser: "anthropic_news"
+          url: "https://www.anthropic.com/news"
+      - name: "Google DeepMind Blog"
+        kind: "official"
+        topic_tags: ["research", "model_release"]
+        priority: 0.96
+        fetch:
+          enabled: true
+          format: "rss"
+          parser: "rss"
+          url: "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/rss/"
+      - name: "Perplexity Blog"
+        kind: "official"
+        topic_tags: ["product_launch", "search_agent"]
+        priority: 0.94
+        fetch:
+          enabled: true
+          format: "html"
+          parser: "perplexity_blog"
+          url: "https://hub-prod.perplexity.ai/hub"
+      - name: "Runway News"
+        kind: "official"
+        topic_tags: ["aigc_video", "product_launch"]
+        priority: 0.93
+        fetch:
+          enabled: true
+          format: "html"
+          parser: "runway_news"
+          url: "https://runwayml.com/news/"
+      - name: "ElevenLabs Blog"
+        kind: "official"
+        topic_tags: ["voice", "audio", "product_launch"]
+        priority: 0.9
+        fetch:
+          enabled: true
+          format: "html"
+          parser: "elevenlabs_blog"
+          url: "https://elevenlabs.io/blog"
+
+  developer_platform:
+    description: "Launch and tool discovery sources."
+    sources:
+      - name: "Product Hunt"
+        kind: "platform"
+        topic_tags: ["product_launch", "tool_discovery"]
+        priority: 0.86
+        fetch:
+          enabled: true
+          format: "atom"
+          parser: "rss"
+          url: "https://www.producthunt.com/feed"
+      - name: "GitHub Trending"
+        kind: "platform"
+        topic_tags: ["repo_or_tool", "open_source"]
+        priority: 0.9
+        fetch:
+          enabled: true
+          format: "html"
+          parser: "github_trending"
+          url: "https://github.com/trending"
+      - name: "Hacker News"
+        kind: "platform"
+        topic_tags: ["launch_discussion", "industry_signal"]
+        priority: 0.88
+        fetch:
+          enabled: true
+          format: "rss"
+          parser: "rss"
+          url: "https://news.ycombinator.com/rss"
+
+  community_signal:
+    description: "Fast signal sources for what builders are discussing."
+    sources:
+      - name: "Twitter/X Core Watchlist"
+        kind: "internal_watchlist"
+        topic_tags: ["builder_signal", "prompt", "workflow"]
+        priority: 0.95
+        fetch:
+          enabled: false
+          format: "internal"
+          parser: "watchlist"
+      - name: "Readhub AI"
+        kind: "aggregator"
+        topic_tags: ["china_bridge", "news"]
+        priority: 0.78
+        fetch:
+          enabled: false
+          format: "html"
+          parser: "generic_links"
+          url: "https://readhub.cn/topics"
+
+  curated_media:
+    description: "Useful for breadth and fast discovery, but should be verified on primary sources."
+    sources:
+      - name: "The Rundown AI"
+        kind: "media"
+        topic_tags: ["news", "tool_discovery", "creator_trends"]
+        priority: 0.76
+        fetch:
+          enabled: false
+          format: "newsletter"
+          parser: "manual"
+      - name: "Latent Space"
+        kind: "media"
+        topic_tags: ["agents", "developer_tools", "analysis"]
+        priority: 0.8
+        fetch:
+          enabled: false
+          format: "html"
+          parser: "generic_links"
+          url: "https://www.latent.space/"
+      - name: "Ben's Bites"
+        kind: "media"
+        topic_tags: ["news", "tool_discovery"]
+        priority: 0.72
+        fetch:
+          enabled: false
+          format: "newsletter"
+          parser: "manual"
+
+  china_bridge:
+    description: "Chinese-language bridges for faster local consumption and competition/news crossover."
+    sources:
+      - name: "AIBetas"
+        kind: "china_media"
+        topic_tags: ["news", "aigc", "contest"]
+        priority: 0.8
+        fetch:
+          enabled: false
+          format: "html"
+          parser: "generic_links"
+          url: "https://www.aibetas.com.cn/"
+      - name: "机器之心"
+        kind: "china_media"
+        topic_tags: ["research", "industry_signal"]
+        priority: 0.77
+        fetch:
+          enabled: false
+          format: "html"
+          parser: "generic_links"
+          url: "https://www.jiqizhixin.com/"
+      - name: "APPSO / 爱范儿 AI"
+        kind: "china_media"
+        topic_tags: ["product_launch", "consumer_ai"]
+        priority: 0.7
+        fetch:
+          enabled: false
+          format: "html"
+          parser: "generic_links"
+          url: "https://www.ifanr.com/"
+
+selection_rules:
+  must_keep_if:
+    - "confirmed_by_official_source"
+    - "material model or product launch"
+    - "directly useful for creator tooling or workflows"
+  downrank_if:
+    - "pure opinion without new facts"
+    - "duplicate of stronger source"
+    - "generic industry commentary"
+
+brief_integration:
+  map_to_sections:
+    model_release: "must_know_launches"
+    product_launch: "must_know_launches"
+    repo_or_tool: "builder_moves"
+    workflow: "creator_workflows"
+    aigc_video: "viral_aigc"
+    research: "watch_next"

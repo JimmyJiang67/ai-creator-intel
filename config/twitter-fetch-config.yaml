@@ -1,0 +1,257 @@
+version: 1
+updated_at: "2026-03-16"
+purpose: "Default fetch, filter, scoring, and briefing rules for the Twitter/X watchlist"
+
+runtime:
+  timezone: "Asia/Shanghai"
+  default_mode: "daily_brief"
+  lookback_hours:
+    daily_brief: 24
+    weekly_review: 168
+    manual_deep_dive: 72
+  max_concurrency: 6
+  fail_soft: true
+
+sources:
+  provider_order:
+    - "twitterapiio"
+    - "official_api"
+    - "browser_fallback"
+  require_watchlist_file: "config/twitter-watchlist.yaml"
+
+fetch_policy:
+  include_post_types:
+    - "original"
+    - "quote"
+    - "thread_root"
+  exclude_post_types:
+    - "reply_only"
+    - "like_only"
+  include_media_types:
+    - "text"
+    - "image"
+    - "video"
+    - "link"
+  include_metrics: true
+  include_quote_context: true
+  include_link_preview: true
+  include_thread_expansion: true
+  expand_threads_max_posts: 6
+  fetch_linked_article_when:
+    - "post_contains_external_link"
+    - "post_score_above_threshold"
+  linked_article_fetch_limit_per_run: 10
+
+tier_policy:
+  core:
+    enabled: true
+    fetch_every_hours: 6
+    lookback_hours: 36
+    max_accounts_per_run: 50
+    max_posts_per_account: 12
+    promote_to_brief_by_default: true
+  candidate:
+    enabled: true
+    fetch_every_hours: 24
+    lookback_hours: 72
+    max_accounts_per_run: 40
+    max_posts_per_account: 6
+    promote_to_brief_by_default: false
+  scout:
+    enabled: true
+    fetch_every_hours: 72
+    lookback_hours: 168
+    max_accounts_per_run: 20
+    max_posts_per_account: 4
+    promote_to_brief_by_default: false
+
+account_category_policy:
+  official:
+    default_priority: 0.92
+    allow_more_launch_posts: true
+  founder:
+    default_priority: 0.88
+  operator:
+    default_priority: 0.84
+  builder:
+    default_priority: 0.9
+  creator:
+    default_priority: 0.82
+  media:
+    default_priority: 0.72
+  scout:
+    default_priority: 0.55
+
+content_filters:
+  hard_exclude_if:
+    min_characters: 20
+    contains_only_link: true
+    is_giveaway_or_raffle: true
+    is_engagement_farming: true
+    is_off_topic_from_ai: true
+  downrank_if:
+    is_simple_repost_without_commentary: true
+    is_generic_motivation: true
+    is_personal_life_update_without_ai_relevance: true
+    is_low_information_event_reaction: true
+    excessive_hashtags: 4
+  prefer_if:
+    has_first_hand_launch_signal: true
+    has_demo_or_workflow: true
+    has_concrete_prompt_or_template: true
+    has_video_with_reproducible_method: true
+    has_numbers_metrics_or_results: true
+    has_tool_link_or_repo_link: true
+
+ai_relevance:
+  required_keywords_any:
+    - "ai"
+    - "agent"
+    - "llm"
+    - "gpt"
+    - "claude"
+    - "openai"
+    - "anthropic"
+    - "gemini"
+    - "perplexity"
+    - "midjourney"
+    - "runway"
+    - "flux"
+    - "workflow"
+    - "prompt"
+    - "video generation"
+    - "image generation"
+    - "vibe coding"
+  category_overrides:
+    official:
+      allow_without_keyword_match: true
+    founder:
+      allow_without_keyword_match: true
+
+scoring:
+  scale: 0_to_10
+  keep_thresholds:
+    core: 6.8
+    candidate: 7.4
+    scout: 8.0
+  weights:
+    first_hand_signal: 2.0
+    creator_usefulness: 1.8
+    novelty: 1.6
+    reproducibility: 1.4
+    credibility: 1.4
+    engagement_quality: 1.0
+    media_demonstration: 0.8
+  penalties:
+    repost_without_addition: -1.8
+    vague_hype: -1.5
+    off_topic: -3.0
+    low_signal_reply: -2.0
+
+classification:
+  target_labels:
+    - "model_release"
+    - "product_launch"
+    - "feature_update"
+    - "builder_workflow"
+    - "prompt"
+    - "viral_video"
+    - "viral_image"
+    - "repo_or_tool"
+    - "research_signal"
+    - "industry_narrative"
+    - "funding_or_company_move"
+  max_labels_per_post: 3
+
+deduplication:
+  enabled: true
+  similarity_methods:
+    - "normalized_text"
+    - "shared_url"
+    - "same_launch_entity"
+  similarity_threshold: 0.84
+  prefer_post_from:
+    - "official"
+    - "founder"
+    - "builder"
+    - "creator"
+    - "media"
+
+brief_generation:
+  max_items_total:
+    daily_brief: 18
+    weekly_review: 35
+  section_order:
+    - "must_know_launches"
+    - "builder_moves"
+    - "creator_workflows"
+    - "viral_aigc"
+    - "watch_next"
+    - "contest_opportunities"
+  section_rules:
+    must_know_launches:
+      include_labels: ["model_release", "product_launch", "feature_update", "funding_or_company_move"]
+      max_items: 6
+    builder_moves:
+      include_labels: ["builder_workflow", "repo_or_tool", "industry_narrative"]
+      max_items: 5
+    creator_workflows:
+      include_labels: ["prompt", "builder_workflow", "repo_or_tool"]
+      max_items: 4
+    viral_aigc:
+      include_labels: ["viral_video", "viral_image"]
+      max_items: 4
+    watch_next:
+      include_labels: ["research_signal", "industry_narrative"]
+      max_items: 3
+    contest_opportunities:
+      include_labels: ["contest_opportunity"]
+      max_items: 3
+  item_output_fields:
+    - "handle"
+    - "category"
+    - "labels"
+    - "why_it_matters"
+    - "suggested_angle"
+    - "source_url"
+
+creator_angles:
+  default_angles:
+    - "Can this become a short post or thread?"
+    - "Does this reveal a repeatable workflow?"
+    - "Is there a China/overseas perspective gap worth explaining?"
+    - "Can this be reframed as a builder case study?"
+  prioritize_angles_for_labels:
+    model_release:
+      - "What changed for creators or builders?"
+      - "What is genuinely new versus marketing?"
+    product_launch:
+      - "What user job does this unlock?"
+      - "Is it likely to create a content trend?"
+    prompt:
+      - "Can followers reproduce this quickly?"
+      - "Does it have demo potential?"
+    viral_video:
+      - "Can this be turned into a trend explainer?"
+      - "What exact workflow likely produced it?"
+
+delivery_hints:
+  default_channels:
+    - "feishu"
+    - "email"
+  subject_templates:
+    daily_brief: "AI X Daily Brief | {date}"
+    weekly_review: "AI X Weekly Review | {date}"
+  feishu_format:
+    include_summary_topline: true
+    include_sections: true
+    include_source_links: true
+  email_format:
+    include_summary_topline: true
+    include_sections: true
+    include_source_links: true
+
+notes:
+  - "V1 is watchlist-first. Do not depend on dynamic following-page crawling in the main loop."
+  - "Fetch official and builder accounts aggressively; fetch scout accounts mainly for discovery."
+  - "Prioritize first-hand launches, reproducible workflows, and creator-useful signals over raw virality."

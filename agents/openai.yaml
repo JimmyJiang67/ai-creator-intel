@@ -1,0 +1,8 @@
+interface:
+  display_name: "AI Creator Intel"
+  short_description: "Track AI builders and creator signals"
+  brand_color: "#0F766E"
+  default_prompt: "Use $ai-creator-intel to turn my curated AI Twitter/X watchlist into a concise creator brief."
+
+policy:
+  allow_implicit_invocation: true

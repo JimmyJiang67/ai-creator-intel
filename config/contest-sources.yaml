@@ -1,0 +1,107 @@
+version: 1
+updated_at: "2026-03-16"
+purpose: "Initial AIGC contest source map for creator and team opportunity tracking"
+
+strategy:
+  priority_order:
+    - "official_event_page"
+    - "trusted_aggregator"
+    - "community_contest_platform"
+  notes:
+    - "Use aggregator pages to discover contests, then resolve to official event pages whenever possible."
+    - "Prioritize contests with clear organizer, deadline, prize, submission rules, and official entry link."
+    - "Downrank low-trust or purely promotional contest pages without submission or organizer details."
+
+required_fields:
+  - "title"
+  - "organizer"
+  - "deadline"
+  - "format"
+  - "requirements"
+  - "source_url"
+optional_fields:
+  - "prize"
+  - "region"
+  - "official_url"
+  - "submission_url"
+  - "target_audience"
+
+source_groups:
+  trusted_aggregator:
+    description: "Good for discovery and broad market coverage."
+    sources:
+      - name: "AIBetas AIGC Events"
+        homepage: "https://www.aibetas.com.cn/aigc-events"
+        kind: "aggregator"
+        focus: ["china", "aigc_video", "aigc_design", "aigc_shortfilm"]
+        priority: 0.92
+        trust_notes: "Best current broad Chinese AIGC contest aggregator among reviewed sources."
+      - name: "AIBetas AIGC 竞赛汇总"
+        homepage: "https://www.aibetas.com.cn/aigc%E7%AB%9E%E8%B5%9B%E6%B1%87%E6%80%BB"
+        kind: "aggregator"
+        focus: ["china", "aigc_video", "aigc_design"]
+        priority: 0.9
+        trust_notes: "Useful summary page with deadlines and category tags."
+
+  official_event_page:
+    description: "Preferred final source for briefing and team action."
+    sources:
+      - name: "Organizer official contest pages"
+        kind: "official"
+        focus: ["all"]
+        priority: 1.0
+        trust_notes: "Use the official organizer page as the final authority whenever available."
+      - name: "NVIDIA Generative AI Contests"
+        homepage: "https://www.nvidia.com/en-eu/ai-data-science/generative-ai/developer-contest-with-langchain/"
+        kind: "official"
+        focus: ["global", "agent", "developer"]
+        priority: 0.84
+        trust_notes: "Useful for higher-quality dev contests, though not always creator-centric."
+
+  community_contest_platform:
+    description: "Useful for creator-side discovery, especially AI video and AI art communities."
+    sources:
+      - name: "Hundrr"
+        homepage: "https://www.hundrr.com/"
+        kind: "community_platform"
+        focus: ["global", "aigc_video", "creator"]
+        priority: 0.74
+        trust_notes: "Good for community AI video contests; verify organizer and payment details."
+      - name: "Kognie Contests"
+        homepage: "https://kognie.com/contests"
+        kind: "community_platform"
+        focus: ["global", "ai_art", "creator"]
+        priority: 0.66
+        trust_notes: "Useful for AI art challenge discovery, lower relevance for business or team participation."
+      - name: "AI-ARTS"
+        homepage: "https://ai-arts.org/"
+        kind: "community_platform"
+        focus: ["global", "ai_art"]
+        priority: 0.64
+        trust_notes: "Relevant for AI art visibility, lower priority for creator-business action."
+
+selection_rules:
+  must_keep_if:
+    - "deadline_is_upcoming"
+    - "organizer_is_clear"
+    - "submission_requirements_are_clear"
+  prefer_if:
+    - "has_cash_prize_or_distribution_support"
+    - "has_brand_or platform recognition"
+    - "allows public creator participation"
+    - "supports video, short film, image, or prompt-native work"
+  downrank_if:
+    - "deadline_missing"
+    - "official_link_missing"
+    - "organizer_unclear"
+    - "rules_too_vague"
+
+brief_integration:
+  section_name: "contest_opportunities"
+  max_items:
+    daily_brief: 3
+    weekly_review: 8
+  sort_order:
+    - "deadline_soonest"
+    - "creator_relevance"
+    - "prize_or_support"

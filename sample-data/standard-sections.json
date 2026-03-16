@@ -1,0 +1,28 @@
+{
+  "must_know_launches": [
+    {
+      "source": "@OpenAI",
+      "why_it_matters": "New release affects creator workflows.",
+      "suggested_angle": "Explain what actually changed.",
+      "source_url": "https://x.com/OpenAI"
+    }
+  ],
+  "builder_moves": [
+    {
+      "source": "@steipete",
+      "why_it_matters": "New agent workflow is reusable.",
+      "suggested_angle": "Turn it into a builder case study.",
+      "source_url": "https://x.com/steipete"
+    }
+  ],
+  "creator_workflows": [
+    {
+      "source": "@AI_Jasonyu",
+      "why_it_matters": "Reusable Chinese-language AI workflow content.",
+      "suggested_angle": "Turn it into a tutorial breakdown.",
+      "source_url": "https://x.com/AI_Jasonyu"
+    }
+  ],
+  "viral_aigc": [],
+  "watch_next": []
+}

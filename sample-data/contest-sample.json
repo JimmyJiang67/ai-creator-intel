@@ -1,0 +1,20 @@
+[
+  {
+    "赛事名称": "AIGC 视频大赛",
+    "主办方": "某平台",
+    "截止时间": "2026-06-30",
+    "奖项": "一等奖 5 万元",
+    "参赛要求": "原创 AIGC 视频",
+    "报名链接": "https://example.cn/official",
+    "来源链接": "https://example.cn/aggregate"
+  },
+  {
+    "title": "Global AI Film Challenge",
+    "organizer": "Example Studio",
+    "deadline": "2026-05-01",
+    "prize": "$10,000",
+    "requirements": "AI-generated short film",
+    "official_url": "https://example.com/official",
+    "source_url": "https://example.com/listing"
+  }
+]

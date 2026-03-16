@@ -1,23 +1,24 @@
 # AI Creator Intel
 
-An OpenClaw-oriented skill for AI creator intelligence across Twitter/X, AI news, and AIGC contests.
+[English README](./README.en.md)
 
-It is designed for creator-style daily or weekly briefs, with a strong bias toward:
+一个面向 OpenClaw 的 AI 创作者情报 skill，聚合 `Twitter/X`、`AI 新闻` 和 `AIGC 比赛信息`，输出适合内容创作者消费的日报或周报。
 
-- first-hand product and model launches
-- builder and founder signals on Twitter/X
-- reusable workflows, prompts, and viral AIGC content
-- creator-relevant competition opportunities
+这个 skill 的核心目标不是“抓得越多越好”，而是：
 
-## What It Does
+- 优先一手信息
+- 优先创作者真正会用到的内容
+- 降低泛资讯和重复信息的噪音
 
-This skill combines three streams into one brief:
+## 这个 skill 能做什么
 
-1. Twitter/X watchlist monitoring
-2. AI news aggregation and filtering
-3. AIGC contest tracking
+它把三条信息流合成一份 brief：
 
-Default output sections:
+1. `Twitter/X` 账号池监控
+2. `AI 新闻` 聚合与过滤
+3. `AIGC 比赛` 跟踪
+
+默认输出栏目：
 
 - `must_know_launches`
 - `builder_moves`
@@ -26,27 +27,27 @@ Default output sections:
 - `watch_next`
 - `contest_opportunities`
 
-## Current V1 Approach
+## 当前 V1 设计思路
 
-The skill is intentionally watchlist-first.
+这一版是 `watchlist-first`：
 
-- `Twitter/X` uses a curated watchlist, not broad discovery as the main loop
-- `News` prefers official and stable sources first
-- `Contests` prioritize creator-relevant aggregators and official pages
+- `Twitter/X` 以人工维护账号池为主，不把全网发现当主链路
+- `新闻` 优先官方和稳定来源
+- `比赛` 优先创作者相关的聚合页和官方页面
 
-This keeps the output higher-signal than a generic AI news scraper.
+这样做的目的，是让结果更像“AI 内容博主的情报台”，而不是一个泛 AI 新闻爬虫。
 
-## Included Sources
+## 当前包含的来源
 
 ### Twitter/X
 
-- Curated `core`, `candidate`, and `scout` account pools
-- Browser-based watchlist mode for real production use
-- Optional API mode if you want it later
+- 已维护 `core`、`candidate`、`scout` 三层账号池
+- 支持浏览器模式抓取真实 watchlist
+- 也预留了 API 路线，但不是当前主路径
 
-### News
+### 新闻
 
-Live default news mode currently includes:
+当前 live 默认新闻源包括：
 
 - OpenAI News
 - Anthropic News
@@ -58,19 +59,20 @@ Live default news mode currently includes:
 - GitHub Trending
 - Hacker News
 
-### Contests
+### 比赛
 
-Live default contest workflow currently prioritizes:
+当前比赛链路优先：
 
-- AIBetas AIGC events
-- plus lower-priority contest discovery sources configured in `config/contest-sources.yaml`
+- AIBetas AIGC 赛事页
+- 以及 `config/contest-sources.yaml` 里配置的补充发现源
 
-## Repository Structure
+## 仓库结构
 
 ```text
 ai-creator-intel/
 ├── SKILL.md
 ├── README.md
+├── README.en.md
 ├── agents/
 ├── assets/
 ├── config/
@@ -80,35 +82,35 @@ ai-creator-intel/
 └── tests/
 ```
 
-Key files:
+关键文件：
 
-- [`SKILL.md`](./SKILL.md): skill behavior and usage rules
-- [`config/twitter-watchlist.yaml`](./config/twitter-watchlist.yaml): curated X accounts
-- [`config/twitter-fetch-config.yaml`](./config/twitter-fetch-config.yaml): fetch and scoring policy
-- [`config/news-sources.yaml`](./config/news-sources.yaml): news sources and priorities
-- [`config/contest-sources.yaml`](./config/contest-sources.yaml): contest sources
+- [`SKILL.md`](./SKILL.md)：skill 的行为说明和使用规则
+- [`config/twitter-watchlist.yaml`](./config/twitter-watchlist.yaml)：Twitter/X 账号池
+- [`config/twitter-fetch-config.yaml`](./config/twitter-fetch-config.yaml)：抓取、过滤、打分策略
+- [`config/news-sources.yaml`](./config/news-sources.yaml)：新闻源配置和优先级
+- [`config/contest-sources.yaml`](./config/contest-sources.yaml)：比赛源配置
 
-## Quick Start
+## 快速开始
 
-### 1. Validate configuration
+### 1. 先校验配置
 
 ```bash
 python3 scripts/validate_configs.py
 ```
 
-### 2. Run news only
+### 2. 只跑新闻
 
 ```bash
 python3 scripts/build_news_brief.py 'news://default' daily_brief
 ```
 
-### 3. Run contests only
+### 3. 只跑比赛
 
 ```bash
 python3 scripts/build_contest_brief.py 'https://www.aibetas.com.cn/aigc-events' daily_brief --render
 ```
 
-### 4. Run the full brief
+### 4. 跑完整 brief
 
 ```bash
 python3 scripts/build_full_brief.py \
@@ -119,65 +121,65 @@ python3 scripts/build_full_brief.py \
   --render
 ```
 
-## Twitter/X Setup
+## Twitter/X 使用方式
 
-For production use, the recommended path is browser mode.
+生产环境推荐用浏览器模式。
 
-Initialize a persistent logged-in X profile:
+先初始化一个持久化、已登录的 X profile：
 
 ```bash
 python3 scripts/init_x_browser_profile.py --profile-dir /path/to/x-profile
 ```
 
-Then export:
+然后导出环境变量：
 
 ```bash
 export X_BROWSER_PROFILE_DIR="/path/to/x-profile"
 ```
 
-Browser mode currently:
+当前浏览器模式会：
 
-- reads `core + candidate`
-- keeps `original + quote + repost`
-- excludes replies
-- stops after crossing the last 24 hours or a scroll guardrail
+- 读取 `core + candidate`
+- 保留 `original + quote + repost`
+- 排除 replies
+- 抓最近 24 小时窗口，并带滚动保护
 
-## Development Notes
+## 开发说明
 
-This repository includes:
+这个仓库里已经包含：
 
-- sample payloads for local development
-- parser and briefing scripts
-- tests for Twitter/X, news, contests, and full brief assembly
+- 本地开发用 sample data
+- 各条链路的 parser 和 brief 组装脚本
+- Twitter/X、新闻、比赛、full brief 的测试
 
-Run the test suite:
+跑测试：
 
 ```bash
 python3 -m unittest discover -s tests -p 'test_*.py'
 ```
 
-## Production Trial
+## 生产试跑
 
-Before wiring Feishu or email delivery, run the production checklist:
+正式接飞书或邮件之前，先按这份清单跑第一轮：
 
 - [`references/production-trial-checklist.md`](./references/production-trial-checklist.md)
 
-Recommended first trial:
+建议顺序：
 
-1. Twitter/X only
-2. News only
-3. Contests only
-4. Full brief render
+1. 先跑 Twitter/X
+2. 再跑新闻
+3. 再跑比赛
+4. 最后跑完整 brief
 
-Only connect delivery after the local combined brief looks useful.
+只有在本地输出已经像样之后，再接最终投递。
 
-## Known V1 Limits
+## 当前 V1 限制
 
-- Twitter/X depends on a browser session or a third-party API
-- Some contest entries still have sparse metadata
-- News filtering is tuned for creator usefulness, not exhaustive coverage
-- Source expansion is intentionally conservative to avoid a noisy brief
+- Twitter/X 仍然依赖浏览器会话或第三方 API
+- 部分比赛条目字段还不够完整
+- 新闻过滤现在偏“创作者实用性”，不是全量行业收录
+- 为了避免噪音，source 扩张策略比较保守
 
 ## License
 
-MIT. See [`LICENSE`](LICENSE).
+MIT。见 [`LICENSE`](LICENSE)。
